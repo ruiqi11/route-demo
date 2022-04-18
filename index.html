@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Router 实现演示</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    
+    li {
+      list-style: none;
+    }
+    /* .text {
+      margin: auto;
+    } */
+    
+    body {
+      position: relative;
+    }
+    
+    .text {
+      margin-top: 150px;
+      text-align: center;
+    }
+    
+    button {
+      margin-bottom: 20px;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .choice {
+      height: 40px;
+    }
+    
+    .routeView {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <body>
+    <div class="text">
+      <div class="choice">
+        <span id="0">hash</span> |
+        <span id="1">history</span>
+      </div>
+      <button onclick="recover()">重置地址</button>
+      <div class="route">
+        <!-- hash -->
+        <ul id="0">
+          <!-- 定义路由 -->
+          <li><a href="#/home">hash home</a></li>
+          <li><a href="#/about">hash about</a></li>
+
+          <!-- 渲染路由对应的 UI -->
+          <div class="routeView"></div>
+        </ul>
+        <!-- history -->
+        <ul id="1" class="history">
+          <li><a href='?route=home'>history home</a></li>
+          <li><a href='?route=about'>history about</a></li>
+
+          <div class="routeView"></div>
+        </ul>
+      </div>
+    </div>
+  </body>
+</body>
+<script>
+  const choice = document.getElementsByClassName('choice')[0]
+  const route = document.getElementsByClassName('route')[0]
+  Array.from(route.children).forEach(item => {
+    if (item.id === '1') {
+      item.classList.add('hidden')
+    }
+  })
+  choice.addEventListener('click', e => {
+    Array.from(route.children).forEach(item => {
+      if (item.id === e.target.id) {
+        item.classList.remove('hidden')
+      } else {
+        item.classList.add('hidden')
+      }
+    })
+  })
+
+  function recover() {
+    location.href = location.pathname
+  }
+</script>
+<script src="./hash.js"></script>
+<script src="./history.js"></script>
+
+</html>
